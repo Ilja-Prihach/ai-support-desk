@@ -48,22 +48,24 @@ The AI assistant answers from a managed knowledge base instead of inventing prod
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    Customer[Telegram customer] --> Telegram[Telegram Bot API]
-    Telegram --> Webhook[Supabase Edge Function]
-
-    Webhook --> DB[(Supabase Postgres)]
-    Webhook --> Embeddings[OpenAI Embeddings API]
-    Embeddings --> Vector[pgvector search]
-    Vector --> DB
-    Webhook --> Responses[OpenAI Responses API]
-    Responses --> Telegram
-
-    Manager[Support manager] --> Admin[Next.js admin dashboard]
-    Admin <--> DB
-    DB -. Realtime events .-> Admin
-    Admin --> Telegram
+```text
+Telegram customer
+       │
+       ▼
+Telegram Bot API ◄──────────────────────────────┐
+       │                                        │
+       ▼                                        │
+Supabase Edge Function                          │
+       ├──► OpenAI Embeddings ──► pgvector      │
+       ├──► OpenAI Responses API                │
+       └──► Supabase Postgres                   │
+                    ▲                           │
+                    │ Realtime                  │
+                    ▼                           │
+             Next.js admin dashboard ───────────┘
+                    ▲
+                    │
+             Support manager
 ```
 
 Detailed PlantUML diagrams are available in [`docs/c4`](docs/c4), [`docs/erd`](docs/erd), and [`docs/sequence`](docs/sequence).
