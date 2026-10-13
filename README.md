@@ -111,8 +111,8 @@ Detailed PlantUML diagrams are available in [`docs/c4`](docs/c4), [`docs/erd`](d
 ### 1. Clone and start Supabase
 
 ```bash
-git clone https://github.com/Ilja-Prihach/Full_Stack_Bot.-.git
-cd Full_Stack_Bot.-
+git clone https://github.com/Ilja-Prihach/ai-support-desk.git
+cd ai-support-desk
 supabase start
 supabase db reset
 ```
